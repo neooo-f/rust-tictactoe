@@ -26,40 +26,35 @@ pub fn print_board(fields: &[u8]) {
 }
 
 pub fn opponent_thinking() {
-    print!("Opponent Thinking "); // Print "Loading" once
-    io::stdout().flush().unwrap(); // Ensure "Loading" is printed immediately
+    print!("Opponent Thinking ");
+    io::stdout().flush().unwrap(); // prints line above immediately
 
     let num_dots = 4;
     let dot_duration = Duration::from_millis(500);
 
-    // Hide the cursor
-    execute!(io::stdout(), cursor::Hide).unwrap();
+    execute!(io::stdout(), cursor::Hide).unwrap(); // hides cursor
 
     for _ in 0..2 {
-        // Go back to the beginning of the line after each cycle
-        print!("\rOpponent Thinking ");
+        print!("\rOpponent Thinking "); // goes back to the beginning of the line after each cycle
 
-        // Print dots one after another
-        for _ in 0..num_dots {
+        for _ in 0..num_dots { // prints dots one after another
             print!(".");
-            io::stdout().flush().unwrap(); // Ensure dot is printed immediately
+            io::stdout().flush().unwrap(); // prints dot immediately
             thread::sleep(dot_duration);
         }
 
-        // Erase the dots by moving the cursor back and printing spaces
-        print!("\rOpponent Thinking ");
+        print!("\rOpponent Thinking "); // erases the dots by moving the cursor back and printing spaces
         for _ in 0..num_dots {
             print!(" ");
         }
-        io::stdout().flush().unwrap(); // Ensure spaces are printed immediately
-        thread::sleep(Duration::from_secs(1)); // Wait for 1 second
+        io::stdout().flush().unwrap();
+        thread::sleep(Duration::from_secs(1));
     }
 
-    // Clear the line completely after the animation is over
-    print!("\r"); // Move cursor to the beginning of the line
-    print!("                  "); // Print enough spaces to overwrite the line
-    io::stdout().flush().unwrap(); // Ensure spaces are printed immediately
+    // clears the line completely after the animation is over
+    print!("\r"); // moves cursor to the beginning of the line
+    print!("                  "); // print enough spaces to overwrite the line
+    io::stdout().flush().unwrap(); // prints spaces immediately
 
-    // Show the cursor
-    execute!(io::stdout(), cursor::Show).unwrap();
+    execute!(io::stdout(), cursor::Show).unwrap();    // shows the cursor again
 }
